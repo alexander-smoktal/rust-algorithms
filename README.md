@@ -8,75 +8,78 @@ Common algorithms and data structures implemented in Rust. Inspired by
 
 # Algorithms
 
-- (x) Array shuffle
-- (x) Prime test(trial division)
-- (x) Prime test(Miller-Rabin's method)
-- (x) 2D Array
-- (x) Arbitrary Integer
-- (x) Linear congruential generator
-- (x) Maximum subarray problem
+#### Implemented
 
-- (x) Bit-Set
-- (x) Queue
-- (x) Stack
-- (x) Binary Heap
-- (x) Fibonacci Heap
-- (x) Priority Queue (list based)
-
-- (x) Bubble sort
-- (x) Selection sort
-- (x) Insertion sort
-- (x) Shell sort
-- (x) Radix sort
-- (x) Quick sort
-- (x) Merge sort
-- (x) Double linked list
-- (x) Skip list
-- (x) Self-organized linked-list ops (move-to-front, move-ahead-one)
-- (x) Largest common sequence
-
-- (x) Binary search tree
-- (x) AVL tree
-- (x) Dynamic order statistics
-- (x) Red-black tree
-- (x) Interval tree
-- (x) Prefix Tree(Trie)
-- (x) Suffix Tree
-- (x) B-Tree
-- (x) Suffix Array
-
-- (x) Hash by multiplication
-- (x) Hash table
-- (x) Universal hash function
-- (x) Perfect hash
-- (x) Java's string hash
-- (x) FNV-1a string hash
-- (x) SimHash
-- (x) Bloom Filter
-- (x) SHA-1 Message Digest Algorithm
-- (x) MD5
-- (x) Base64
-
-- (x) Graph data structure
-- (x) Strongly Connected Components(SCC)
-- (x) Prim's minimum spanning tree
-- (x) Kruskal MST
-- (x) Directed/Undirected graph ops
-- (x) Breadth First Search
-- (x) Depth First Search
-- (x) Dijkstra's algorithm
-- (x) Bellman-Ford algorithm
-- (x) Edmonds-Karp Maximal Flow
-- (x) Push–Relabel algorithm
-
-- (x) Huffman Coding
-- (x) Word segementation(CHN/GB18030) using HMM and viterbi algorithm.
-- (x) A* algorithm
-- (x) K-Means
-- (x) Knuth–Morris–Pratt algorithm
-- (x) Disjoint-Set
-- (x) 8-Queue Problem
-- (x) Palindrome
+#### Unimplemented
+- Array shuffle
+- Prime test(trial division)
+- Prime test(Miller-Rabin's method)
+- 2D Array
+- Arbitrary Integer
+- Linear congruential generator
+- Maximum subarray problem
+----
+- Bit-Set
+- Queue
+- Stack
+- Binary Heap
+- Fibonacci Heap
+- Priority Queue (list based)
+----
+- Bubble sort
+- Selection sort
+- Insertion sort
+- Shell sort
+- Radix sort
+- Quick sort
+- Merge sort
+- Double linked list
+- Skip list
+- Self-organized linked-list ops (move-to-front, move-ahead-one)
+- Largest common sequence
+----
+- Binary search tree
+- AVL tree
+- Dynamic order statistics
+- Red-black tree
+- Interval tree
+- Prefix Tree(Trie)
+- Suffix Tree
+- B-Tree
+- Suffix Array
+----
+- Hash by multiplication
+- Hash table
+- Universal hash function
+- Perfect hash
+- Java's string hash
+- FNV-1a string hash
+- SimHash
+- Bloom Filter
+- SHA-1 Message Digest Algorithm
+- MD5
+- Base64
+----
+- Graph data structure
+- Strongly Connected Components(SCC)
+- Prim's minimum spanning tree
+- Kruskal MST
+- Directed/Undirected graph ops
+- Breadth First Search
+- Depth First Search
+- Dijkstra's algorithm
+- Bellman-Ford algorithm
+- Edmonds-Karp Maximal Flow
+- Push–Relabel algorithm
+----
+- Huffman Coding
+- Word segementation(CHN/GB18030) using HMM and viterbi algorithm.
+- A* algorithm
+- K-Means
+- Knuth–Morris–Pratt algorithm
+- Disjoint-Set
+- 8-Queue Problem
+- Palindrome
 
 # License
 

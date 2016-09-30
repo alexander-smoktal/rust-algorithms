@@ -10,8 +10,10 @@ Common algorithms and data structures implemented in Rust. Inspired by
 
 #### Implemented
 
-#### Unimplemented
 - Array shuffle
+
+#### Unimplemented
+
 - Prime test(trial division)
 - Prime test(Miller-Rabin's method)
 - 2D Array
@@ -19,14 +21,12 @@ Common algorithms and data structures implemented in Rust. Inspired by
 - Linear congruential generator
 - Maximum subarray
 
-
-- Bit-Set
-- Queue
-- Stack
-- Binary Heap
-- Fibonacci Heap
-- Priority Queue (list based)
-
+ - Bit-Set
+ - Queue
+ - Stack
+ - Binary Heap
+ - Fibonacci Heap
+ - Priority Queue (list based)
 
 - Bubble sort
 - Selection sort
@@ -40,17 +40,15 @@ Common algorithms and data structures implemented in Rust. Inspired by
 - Self-organized linked-list ops (move-to-front, move-ahead-one)
 - Largest common sequence
 
-
-- Binary search tree
-- AVL tree
-- Dynamic order statistics
-- Red-black tree
-- Interval tree
-- Prefix Tree(Trie)
-- Suffix Tree
-- B-Tree
-- Suffix Array
-
+ - Binary search tree
+ - AVL tree
+ - Dynamic order statistics
+ - Red-black tree
+ - Interval tree
+ - Prefix Tree(Trie)
+ - Suffix Tree
+ - B-Tree
+ - Suffix Array
 
 - Hash by multiplication
 - Hash table
@@ -64,19 +62,17 @@ Common algorithms and data structures implemented in Rust. Inspired by
 - MD5
 - Base64
 
-
-- Graph data structure
-- Strongly Connected Components(SCC)
-- Prim's minimum spanning tree
-- Kruskal MST
-- Directed/Undirected graph ops
-- Breadth First Search
-- Depth First Search
-- Dijkstra's algorithm
-- Bellman-Ford algorithm
-- Edmonds-Karp Maximal Flow
-- Push–Relabel algorithm
-
+ - Graph data structure
+ - Strongly Connected Components(SCC)
+ - Prim's minimum spanning tree
+ - Kruskal MST
+ - Directed/Undirected graph ops
+ - Breadth First Search
+ - Depth First Search
+ - Dijkstra's algorithm
+ - Bellman-Ford algorithm
+ - Edmonds-Karp Maximal Flow
+ - Push–Relabel algorithm
 
 - Huffman Coding
 - Word segementation(CHN/GB18030) using HMM and viterbi algorithm.

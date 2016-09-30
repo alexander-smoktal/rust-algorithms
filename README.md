@@ -18,14 +18,14 @@ Common algorithms and data structures implemented in Rust. Inspired by
 - Arbitrary Integer
 - Linear congruential generator
 - Maximum subarray problem
-----
+____
 - Bit-Set
 - Queue
 - Stack
 - Binary Heap
 - Fibonacci Heap
 - Priority Queue (list based)
-----
+____
 - Bubble sort
 - Selection sort
 - Insertion sort
@@ -37,7 +37,7 @@ Common algorithms and data structures implemented in Rust. Inspired by
 - Skip list
 - Self-organized linked-list ops (move-to-front, move-ahead-one)
 - Largest common sequence
-----
+____
 - Binary search tree
 - AVL tree
 - Dynamic order statistics
@@ -47,7 +47,7 @@ Common algorithms and data structures implemented in Rust. Inspired by
 - Suffix Tree
 - B-Tree
 - Suffix Array
-----
+____
 - Hash by multiplication
 - Hash table
 - Universal hash function
@@ -59,7 +59,7 @@ Common algorithms and data structures implemented in Rust. Inspired by
 - SHA-1 Message Digest Algorithm
 - MD5
 - Base64
-----
+____
 - Graph data structure
 - Strongly Connected Components(SCC)
 - Prim's minimum spanning tree
@@ -71,7 +71,7 @@ Common algorithms and data structures implemented in Rust. Inspired by
 - Bellman-Ford algorithm
 - Edmonds-Karp Maximal Flow
 - Push–Relabel algorithm
-----
+____
 - Huffman Coding
 - Word segementation(CHN/GB18030) using HMM and viterbi algorithm.
 - A* algorithm

@@ -17,15 +17,17 @@ Common algorithms and data structures implemented in Rust. Inspired by
 - 2D Array
 - Arbitrary Integer
 - Linear congruential generator
-- Maximum subarray problem
-____
+- Maximum subarray
+
+
 - Bit-Set
 - Queue
 - Stack
 - Binary Heap
 - Fibonacci Heap
 - Priority Queue (list based)
-____
+
+
 - Bubble sort
 - Selection sort
 - Insertion sort
@@ -37,7 +39,8 @@ ____
 - Skip list
 - Self-organized linked-list ops (move-to-front, move-ahead-one)
 - Largest common sequence
-____
+
+
 - Binary search tree
 - AVL tree
 - Dynamic order statistics
@@ -47,7 +50,8 @@ ____
 - Suffix Tree
 - B-Tree
 - Suffix Array
-____
+
+
 - Hash by multiplication
 - Hash table
 - Universal hash function
@@ -59,7 +63,8 @@ ____
 - SHA-1 Message Digest Algorithm
 - MD5
 - Base64
-____
+
+
 - Graph data structure
 - Strongly Connected Components(SCC)
 - Prim's minimum spanning tree
@@ -71,7 +76,8 @@ ____
 - Bellman-Ford algorithm
 - Edmonds-Karp Maximal Flow
 - Push–Relabel algorithm
-____
+
+
 - Huffman Coding
 - Word segementation(CHN/GB18030) using HMM and viterbi algorithm.
 - A* algorithm

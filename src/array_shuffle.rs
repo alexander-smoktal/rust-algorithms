@@ -1,4 +1,14 @@
 
+/******************************************************************************
+ * FISHER YATES'S SHUFFLE 
+ *
+ * Features:
+ * 1. shuffle list in O(n) time.
+ *
+ * http://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+ * 
+ ******************************************************************************/
+
 use std::borrow::BorrowMut;
 
 extern crate rand;
@@ -14,12 +24,12 @@ pub trait ArrayShuffle<E> where Self: BorrowMut<[E]> {
      }
 }
 
-// Shuffle trait for vector
+// Vector implementation
 impl<E> ArrayShuffle<E> for Vec<E> {}
 
-// Shuffle trait for slices
+// Slices implementation
 impl<E> ArrayShuffle<E> for [E] {}
 
-// Shuffle trait for fixed-size arrays.
+// Fixed-size implementation
 // We use macro, to implent trait for all fixed-size arrays
 implement_for_arrays!(ArrayShuffle);

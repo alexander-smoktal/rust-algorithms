@@ -14,6 +14,7 @@ Common algorithms and data structures implemented in Rust. Inspired by
 - Prime test(trial division)
 - Prime test(Miller-Rabin's method)
 - Modular exponentiation
+- Matrix
 
 #### Unimplemented
 

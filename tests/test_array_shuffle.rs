@@ -1,3 +1,4 @@
+#[macro_use]
 extern crate rust_algorithms;
 
 use rust_algorithms::array_shuffle::ArrayShuffle;

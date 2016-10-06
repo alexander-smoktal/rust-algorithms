@@ -1,6 +1,6 @@
 extern crate rust_algorithms;
 
-use rust_algorithms::collections::matrix::{Matrix};
+use rust_algorithms::datatypes::matrix::{Matrix};
 
 macro_rules! matrix {
     ($elem:expr; $width:expr, $height:expr) => {

@@ -16,15 +16,16 @@ Common algorithms and data structures implemented in Rust. Inspired by
 - Modular exponentiation
 - Matrix
 
+----
+- Bit-Set
+
 #### Unimplemented
 
-- 2D Array
 - Arbitrary Integer
 - Linear congruential generator
 - Maximum subarray
 
 ----
-- Bit-Set
 - Queue
 - Stack
 - Binary Heap

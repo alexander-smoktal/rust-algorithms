@@ -10,7 +10,7 @@
 
 use std::iter::{FromIterator, IntoIterator};
 use std::cmp::Ordering;
-use super::super::utils::zip_all;
+use super::super::utils::{zip_all, zip_all_with_default};
 
 #[derive(Debug)]
 pub struct BitSet {
@@ -43,21 +43,19 @@ impl BitSet {
     }
 
     pub fn or(&self, other: &Self) -> BitSet {
-        BitSet::from_iter(zip_all(self.into_iter(), other.into_iter()).map(
-            |(this, that)| if this.unwrap_or(0) == 1 || that.unwrap_or(0) == 1 { 1 } else { 0 }
-        ))
+        BitSet::from_iter(zip_all_with_default(self, other, 0)
+                          .map(|(this, that)| if this == 1 || that == 1 { 1 } else { 0 }))
     }
 
     pub fn xor(&self, other: &Self) -> BitSet {
-        BitSet::from_iter(zip_all(self.into_iter(), other.into_iter()).map(
-            |(this, that)| if this.unwrap_or(0) != that.unwrap_or(0) { 1 } else { 0 }
-        ))
+        BitSet::from_iter(zip_all_with_default(self, other, 0)
+                          .map(|(this, that)| if this != that { 1 } else { 0 }))
     }
 
     pub fn and(&self, other: &Self) -> BitSet {
-        BitSet::from_iter(zip_all(self.into_iter(), other.into_iter()).map(
-            |(this, that)| if this.unwrap_or(0) == 1 && that.unwrap_or(0) == 1 { 1 } else { 0 }
-        ))
+        BitSet::from_iter(zip_all_with_default(self, other, 0)
+                         .map(|(this, that)| if this == 1 && that == 1 { 1 } else { 0 })
+        )
     }
 
     pub fn len(&self) -> usize {
@@ -109,7 +107,7 @@ impl PartialEq for BitSet {
 impl PartialOrd for BitSet {
     fn partial_cmp(&self, other: &BitSet) -> Option<Ordering> {
         let mut result = Ordering::Equal;
-        for (this, that) in zip_all(self.into_iter(), other.into_iter()) {
+        for (this, that) in zip_all(self, other) {
             match (this, that) {
                 (None, Some(r)) => if r != 0 { result = Ordering::Less },
                 (Some(l), None) => if l != 0 { result = Ordering::Greater },

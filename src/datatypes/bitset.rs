@@ -8,6 +8,7 @@
  * 
  ******************************************************************************/
 
+//use std::iter::{FromIterator, IntoIterator};
 use std::cmp::Ordering;
 use super::super::utils::zip_all;
 
@@ -33,7 +34,7 @@ impl BitSet {
     pub fn new(size: usize) -> BitSet {
         BitSet {
             size: size,
-            data: vec![0; size /8]
+            data: vec![0; bytes_to_fit_bits(size)]
         }
     }
 
@@ -46,6 +47,48 @@ impl BitSet {
         for (index, bit) in input.iter().rev().enumerate() {
             assert!(*bit == 1 || *bit == 0, "Invalid value for a bit. Can be only `0` or `1`, got: `{}`", bit);
             result.set_bit(index, *bit)
+        }
+        result
+    }
+
+    pub fn not(&self) -> BitSet {
+        let mut result = BitSet::new(self.size);
+
+        for (index, this) in self.into_iter().enumerate() {
+            result.set_bit(index, if this == 0 { 1 } else { 0 })
+        }
+        result
+    }
+
+    pub fn or(&self, other: &Self) -> BitSet {
+        let result_size = if self.size > other.size { self.size } else { other.size };
+        let mut result = BitSet::new(result_size);
+
+        for (index, (this, that)) in zip_all(self.into_iter(), other.into_iter()).enumerate() {
+            let result_bit = if this.unwrap_or(0) == 1 || that.unwrap_or(0) == 1 { 1 } else { 0 };
+            result.set_bit(index, result_bit)
+        }
+        result
+    }
+
+    pub fn xor(&self, other: &Self) -> BitSet {
+        let result_size = if self.size > other.size { self.size } else { other.size };
+        let mut result = BitSet::new(result_size);
+
+        for (index, (this, that)) in zip_all(self.into_iter(), other.into_iter()).enumerate() {
+            let result_bit = if this.unwrap_or(0) != that.unwrap_or(0) { 1 } else { 0 };
+            result.set_bit(index, result_bit)
+        }
+        result
+    }
+
+    pub fn and(&self, other: &Self) -> BitSet {
+        let result_size = if self.size > other.size { self.size } else { other.size };
+        let mut result = BitSet::new(result_size);
+
+        for (index, (this, that)) in zip_all(self.into_iter(), other.into_iter()).enumerate() {
+            let result_bit = if this.unwrap_or(0) == 1 && that.unwrap_or(0) == 1 { 1 } else { 0 };
+            result.set_bit(index, result_bit)
         }
         result
     }
@@ -88,6 +131,8 @@ impl BitSet {
         }
     }
 }
+
+
 
 impl PartialEq for BitSet {
     fn eq(&self, other: &BitSet) -> bool
@@ -142,3 +187,19 @@ impl<'a> IntoIterator for &'a BitSet {
         }
     }
 }
+
+/*impl FromIterator<u8> for BitSet {
+    fn from_iter<T>(iter: T) -> BitSet where T: IntoIterator<Item=u8> {
+        let mut result = BitSet {
+            size: 0,
+            data: vec![]
+        };
+
+        for element in iter {
+            let index = result.size;
+            result.size +=1;
+            result.set_bit(index, element)
+        }
+        result 
+    }
+}*/

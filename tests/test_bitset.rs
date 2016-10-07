@@ -1,6 +1,7 @@
 extern crate rust_algorithms;
 
 use rust_algorithms::datatypes::bitset::BitSet;
+use std::iter::FromIterator;
 
 #[test]
 #[should_panic]
@@ -82,4 +83,12 @@ fn test_ordering() {
     assert!(set1 < set2);
     assert!(set1 < set3);
     assert!(set3 > set2);
+}
+
+#[test]
+fn test_binops() {
+    assert_eq!(BitSet::from_array(&[1, 0, 1, 0, 1, 0, 1]).not(), BitSet::from_array(&[0, 1, 0, 1, 0, 1, 0]));
+    assert_eq!(BitSet::from_array(&[1, 0, 1, 0, 1, 0, 1]).or(&BitSet::from_array(&[1, 0, 0, 1, 0, 0, 1])), BitSet::from_array(&[1, 0, 1, 1, 1, 0, 1]));
+    assert_eq!(BitSet::from_array(&[1, 0, 1, 0, 1, 0, 1]).and(&BitSet::from_array(&[1, 0, 0, 1, 0, 0, 1])), BitSet::from_array(&[1, 0, 0, 0, 0, 0, 1]));
+    assert_eq!(BitSet::from_array(&[1, 0, 1, 0, 1, 0, 1]).xor(&BitSet::from_array(&[1, 0, 0, 1, 0, 0, 1])), BitSet::from_array(&[0, 0, 1, 1, 1, 0, 0]));
 }

@@ -8,7 +8,7 @@
  * 
  ******************************************************************************/
 
-//use std::iter::{FromIterator, IntoIterator};
+use std::iter::{FromIterator, IntoIterator};
 use std::cmp::Ordering;
 use super::super::utils::zip_all;
 
@@ -38,59 +38,26 @@ impl BitSet {
         }
     }
 
-    pub fn from_array(input: &[u8]) -> BitSet {
-        let mut result = BitSet {
-            size: input.len(),
-            data: Vec::with_capacity(bytes_to_fit_bits(input.len()))
-        };
-
-        for (index, bit) in input.iter().rev().enumerate() {
-            assert!(*bit == 1 || *bit == 0, "Invalid value for a bit. Can be only `0` or `1`, got: `{}`", bit);
-            result.set_bit(index, *bit)
-        }
-        result
-    }
-
     pub fn not(&self) -> BitSet {
-        let mut result = BitSet::new(self.size);
-
-        for (index, this) in self.into_iter().enumerate() {
-            result.set_bit(index, if this == 0 { 1 } else { 0 })
-        }
-        result
+        BitSet::from_iter(self.into_iter().map(|x| if x == 0 { 1 } else { 0 }))
     }
 
     pub fn or(&self, other: &Self) -> BitSet {
-        let result_size = if self.size > other.size { self.size } else { other.size };
-        let mut result = BitSet::new(result_size);
-
-        for (index, (this, that)) in zip_all(self.into_iter(), other.into_iter()).enumerate() {
-            let result_bit = if this.unwrap_or(0) == 1 || that.unwrap_or(0) == 1 { 1 } else { 0 };
-            result.set_bit(index, result_bit)
-        }
-        result
+        BitSet::from_iter(zip_all(self.into_iter(), other.into_iter()).map(
+            |(this, that)| if this.unwrap_or(0) == 1 || that.unwrap_or(0) == 1 { 1 } else { 0 }
+        ))
     }
 
     pub fn xor(&self, other: &Self) -> BitSet {
-        let result_size = if self.size > other.size { self.size } else { other.size };
-        let mut result = BitSet::new(result_size);
-
-        for (index, (this, that)) in zip_all(self.into_iter(), other.into_iter()).enumerate() {
-            let result_bit = if this.unwrap_or(0) != that.unwrap_or(0) { 1 } else { 0 };
-            result.set_bit(index, result_bit)
-        }
-        result
+        BitSet::from_iter(zip_all(self.into_iter(), other.into_iter()).map(
+            |(this, that)| if this.unwrap_or(0) != that.unwrap_or(0) { 1 } else { 0 }
+        ))
     }
 
     pub fn and(&self, other: &Self) -> BitSet {
-        let result_size = if self.size > other.size { self.size } else { other.size };
-        let mut result = BitSet::new(result_size);
-
-        for (index, (this, that)) in zip_all(self.into_iter(), other.into_iter()).enumerate() {
-            let result_bit = if this.unwrap_or(0) == 1 && that.unwrap_or(0) == 1 { 1 } else { 0 };
-            result.set_bit(index, result_bit)
-        }
-        result
+        BitSet::from_iter(zip_all(self.into_iter(), other.into_iter()).map(
+            |(this, that)| if this.unwrap_or(0) == 1 && that.unwrap_or(0) == 1 { 1 } else { 0 }
+        ))
     }
 
     pub fn len(&self) -> usize {
@@ -131,8 +98,6 @@ impl BitSet {
         }
     }
 }
-
-
 
 impl PartialEq for BitSet {
     fn eq(&self, other: &BitSet) -> bool
@@ -188,18 +153,34 @@ impl<'a> IntoIterator for &'a BitSet {
     }
 }
 
-/*impl FromIterator<u8> for BitSet {
+impl<'a> FromIterator<&'a u8> for BitSet {
+    fn from_iter<T>(iter: T) -> BitSet where T: IntoIterator<Item=&'a u8> {
+        let mut result = BitSet {
+            size: 0,
+            data: vec![]
+        };
+
+        for element in iter.into_iter() {
+            let index = result.size;
+            result.size +=1;
+            result.set_bit(index, *element)
+        }
+        result 
+    }
+}
+
+impl FromIterator<u8> for BitSet {
     fn from_iter<T>(iter: T) -> BitSet where T: IntoIterator<Item=u8> {
         let mut result = BitSet {
             size: 0,
             data: vec![]
         };
 
-        for element in iter {
+        for element in iter.into_iter() {
             let index = result.size;
             result.size +=1;
             result.set_bit(index, element)
         }
         result 
     }
-}*/
+}

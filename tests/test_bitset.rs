@@ -6,7 +6,7 @@ use std::iter::FromIterator;
 #[test]
 #[should_panic]
 fn test_invalid_constructor() {
-    let _ = BitSet::from_array(&[1, 0, 1, 1, 0, 0, 7]);
+    let _ = BitSet::from_iter(&[1, 0, 1, 1, 0, 0, 7]);
 }
 
 #[test]
@@ -51,22 +51,22 @@ fn test_oob_get() {
 
 #[test]
 fn test_array_constructor() {
-    let set = BitSet::from_array(&[1, 0, 1, 1, 0, 0, 1]);
+    let set = BitSet::from_iter(&[1, 0, 1, 1, 0, 0, 1]);
 
-    assert_eq!(set.bit(6), 1);
-    assert_eq!(set.bit(5), 0);
-    assert_eq!(set.bit(4), 1);
-    assert_eq!(set.bit(3), 1);
-    assert_eq!(set.bit(2), 0);
-    assert_eq!(set.bit(1), 0);
     assert_eq!(set.bit(0), 1);
+    assert_eq!(set.bit(1), 0);
+    assert_eq!(set.bit(2), 1);
+    assert_eq!(set.bit(3), 1);
+    assert_eq!(set.bit(4), 0);
+    assert_eq!(set.bit(5), 0);
+    assert_eq!(set.bit(6), 1);
 }
 
 #[test]
 fn test_equal() {
-    let set1 = BitSet::from_array(&[1, 0, 1, 1, 0, 0, 1]);
-    let set2 = BitSet::from_array(&[1, 0, 1, 1, 0, 0, 1]);
-    let set3 = BitSet::from_array(&[1, 0, 1, 0, 1, 0, 1]);
+    let set1 = BitSet::from_iter(&[1, 0, 1, 1, 0, 0, 1]);
+    let set2 = BitSet::from_iter(&[1, 0, 1, 1, 0, 0, 1]);
+    let set3 = BitSet::from_iter(&[1, 0, 1, 0, 1, 0, 1]);
 
     assert_eq!(set1, set2);
     assert!(set1 != set3);
@@ -76,9 +76,9 @@ fn test_equal() {
 
 #[test]
 fn test_ordering() {
-    let set1 = BitSet::from_array(&[0, 0, 0, 0, 0, 0, 1]);
-    let set2 = BitSet::from_array(&[1, 0]);
-    let set3 = BitSet::from_array(&[0, 0, 1, 0, 1, 0, 1]);
+    let set1 = BitSet::from_iter(&[1, 0, 0, 0, 0, 0, 0]);
+    let set2 = BitSet::from_iter(&[0, 1]);
+    let set3 = BitSet::from_iter(&[1, 0, 1, 0, 1, 0, 0]);
 
     assert!(set1 < set2);
     assert!(set1 < set3);
@@ -87,8 +87,11 @@ fn test_ordering() {
 
 #[test]
 fn test_binops() {
-    assert_eq!(BitSet::from_array(&[1, 0, 1, 0, 1, 0, 1]).not(), BitSet::from_array(&[0, 1, 0, 1, 0, 1, 0]));
-    assert_eq!(BitSet::from_array(&[1, 0, 1, 0, 1, 0, 1]).or(&BitSet::from_array(&[1, 0, 0, 1, 0, 0, 1])), BitSet::from_array(&[1, 0, 1, 1, 1, 0, 1]));
-    assert_eq!(BitSet::from_array(&[1, 0, 1, 0, 1, 0, 1]).and(&BitSet::from_array(&[1, 0, 0, 1, 0, 0, 1])), BitSet::from_array(&[1, 0, 0, 0, 0, 0, 1]));
-    assert_eq!(BitSet::from_array(&[1, 0, 1, 0, 1, 0, 1]).xor(&BitSet::from_array(&[1, 0, 0, 1, 0, 0, 1])), BitSet::from_array(&[0, 0, 1, 1, 1, 0, 0]));
+    let set_left =  BitSet::from_iter(&[1, 0, 1, 0, 1, 0, 1]);
+    let ref set_right = BitSet::from_iter(&[1, 0, 0, 1, 0, 0, 1]);
+
+    assert_eq!(set_left.not(), BitSet::from_iter(&[0, 1, 0, 1, 0, 1, 0]));
+    assert_eq!(set_left.or(set_right), BitSet::from_iter(&[1, 0, 1, 1, 1, 0, 1]));
+    assert_eq!(set_left.and(set_right), BitSet::from_iter(&[1, 0, 0, 0, 0, 0, 1]));
+    assert_eq!(set_left.xor(set_right), BitSet::from_iter(&[0, 0, 1, 1, 1, 0, 0]));
 }

@@ -36,7 +36,7 @@ impl TrialPrime for u8 {}
  * All one-letter variables come from the algorithm description. Just
  * read wiki article, to anderstand, what's going on. 
  * TODO: Move to trait, when #29646 fixed (Allow to use const in a trait) */
-const ACCURACY: usize = 3;
+const ACCURACY: usize = 5;
 pub trait Prime where u64: From<Self>, Self: Sized {
     fn is_prime(self) -> bool {
         let value = u64::from(self);

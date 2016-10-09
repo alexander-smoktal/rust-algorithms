@@ -5,9 +5,9 @@
  * 
  ******************************************************************************/
 
-//extern crate num;
 use std::cmp::PartialEq;
 use std::ops::{Mul, Add};
+
 extern crate num;
 
 #[macro_export]
@@ -30,7 +30,26 @@ macro_rules! matrix {
 
             result.extend($elem.into_iter());
         )*
+
+        Matrix {
+            width: len,
+            height: result.len() / len,
+            data: result
+        }
+    });
+    // TODO: Use intristics when stable
+    ($typ:ty => $($elem:expr),+) => ({
+        let mut result: Vec<$typ> = Vec::new();
+        let mut len = usize::max_value();
         
+        $(
+            if len == usize::max_value() { len = $elem.len() }
+            assert!($elem.len() == len, "Matrix rows have different len. Current row len: {}, previous rows len: {}",
+                    $elem.len(), len);
+
+            result.extend($elem.into_iter());
+        )*
+
         Matrix {
             width: len,
             height: result.len() / len,
@@ -47,6 +66,7 @@ pub struct Matrix<T> {
     pub height: usize,
 }
 
+/// _Note_: Sorry, have no time to count determinant
 impl<T> Matrix<T> where T: Copy + num::Zero {
      pub fn new(height: usize, width: usize) -> Matrix<T> {
         assert!(width * height < usize::max_value());
@@ -84,6 +104,36 @@ impl<T> Matrix<T> where T: Copy + num::Zero {
     }
 }
 
+impl Matrix<f64> {
+    /// Yeah, ol' good determinant
+    pub fn determinant(&self) -> f64 {
+        assert_eq!(self.width, self.height);
+
+        let mut subi: usize;
+        let mut subj: usize;
+        let mut det = 0.0;
+        if self.width == 1 { det = f64::from(self.data[0]) }
+        else if self.width == 2 { det = f64::from(self.get(0, 0) * self.get(1, 1) - self.get(0, 1) * self.get(1, 0)) } 
+        else {
+            let mut mat = Matrix::new(self.width - 1, self.height - 1);
+            for c in 0..self.width {
+                subi = 0;
+                for i in 1..self.width {
+                    subj = 0;
+                    for j in 0..self.height{
+                        if c == j { continue }
+                        mat.set(subi, subj, self.get(i, j));
+                        subj += 1
+                    }
+                    subi += 1
+                }
+                det += (if c % 2 == 0 { 1.0 } else { -1.0 }) * self.get(0, c) * mat.determinant();
+            }
+        }
+        det
+    }
+}
+
 impl<T, O> PartialEq<Matrix<O>> for Matrix<T> where T: PartialEq<O>  {
     fn eq(&self, other: &Matrix<O>) -> bool {
         self.width == other.width && self.height == other.height && self.data.as_slice() == other.data.as_slice()
@@ -96,7 +146,7 @@ impl<T, O> Add<Matrix<O>> for Matrix<T>
           <T as Add<O>>::Output: Copy + num::Zero {
     type Output = Matrix<<T as Add<O>>::Output>;
 
-    fn add(self, rhs: Matrix<O>) -> Self::Output { 
+    fn add(self, rhs: Matrix<O>) -> Self::Output {
         assert_eq!(self.width, rhs.width);
         assert_eq!(self.height, rhs.height);
 

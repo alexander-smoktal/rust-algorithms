@@ -71,6 +71,17 @@ impl<T> Matrix<T> where T: Copy + num::Zero {
 
         self.data[row * self.width + column] = value
     }
+
+    pub fn transpose(&self) -> Matrix<T> {
+        let mut result = Matrix::new(self.width, self.height);
+
+        for i in 0..self.width {
+            for j in 0..self.height {
+                result.set(i, j, self.get(j, i))
+            }
+        }
+        result
+    }
 }
 
 impl<T, O> PartialEq<Matrix<O>> for Matrix<T> where T: PartialEq<O>  {
@@ -115,6 +126,24 @@ impl<T, O> Mul<Matrix<O>> for Matrix<T>
         for i in 0..self.width {
             for j in 0..self.height {
                 result.set(j, i, self.get(j, i) * rhs.get(i, j))
+            }
+        }
+        result
+    }
+}
+
+impl<T, O> Mul<O> for Matrix<T> 
+    where T: Mul<O> + Copy + num::Zero,
+          O: Copy + num::Zero,
+          <T as Mul<O>>::Output: Copy + num::Zero {
+    type Output = Matrix<<T as Mul<O>>::Output>;
+
+    fn mul(self, rhs: O) -> Self::Output { 
+        let mut result = Matrix::new(self.height, self.width);
+
+        for i in 0..self.width {
+            for j in 0..self.height {
+                result.set(j, i, self.get(j, i) * rhs)
             }
         }
         result

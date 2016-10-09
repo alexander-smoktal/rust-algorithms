@@ -44,7 +44,19 @@ fn test_invalid_add() {
 }
 
 #[test]
+fn test_scalar_mul() {
+    assert_eq!(matrix![3; 3, 2] * 2, matrix![6; 3, 2]);
+    assert_eq!(matrix![[1, 2], [3, 4], [5, 6]] * 2, matrix![[2, 4], [6, 8], [10, 12]]);
+}
+
+#[test]
 fn test_add() {
     assert_eq!(matrix![3; 3, 2] + matrix![3; 3, 2], matrix![6; 3, 2]);
     assert_eq!(matrix![[3, 3], [3, 3], [3, 3]] + matrix![[1, 2], [3, 4], [5, 6]], matrix![[4, 5], [6, 7], [8, 9]]);
+}
+
+#[test]
+fn test_transpose() {
+    assert_eq!(matrix![3; 3, 2].transpose(), matrix![3; 2, 3]);
+    assert_eq!(matrix![[1, 2], [3, 4], [5, 6]].transpose(), matrix![[1, 3, 5], [2, 4, 6]]);
 }

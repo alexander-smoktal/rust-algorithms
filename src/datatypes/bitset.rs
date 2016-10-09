@@ -10,7 +10,7 @@
 
 use std::iter::{FromIterator, IntoIterator};
 use std::cmp::Ordering;
-use super::super::utils::{zip_all, zip_all_with_default};
+use super::super::utils::zip_all::{zip_all, zip_all_with_default};
 
 #[derive(Debug)]
 pub struct BitSet {

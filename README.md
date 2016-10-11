@@ -8,8 +8,9 @@ Common algorithms and data structures implemented in Rust. Inspired by
 
 # Algorithms
 
-#### Implemented
+### Implemented
 
+- Arbitrary Integer
 - Array shuffle
 - Prime test(trial division)
 - Prime test(Miller-Rabin's method)
@@ -19,9 +20,8 @@ Common algorithms and data structures implemented in Rust. Inspired by
 ----
 - Bit-Set
 
-#### Unimplemented
+### Not yet implemented
 
-- Arbitrary Integer
 - Linear congruential generator
 - Maximum subarray
 

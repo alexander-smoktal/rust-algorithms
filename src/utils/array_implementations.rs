@@ -1,7 +1,4 @@
-/* Macro, to implement a trait for all fixed-sized arrays
- */
-
-#![macro_use]
+//! Macro, to implement the trait for all fixed-sized arrays
 
 macro_rules! implement_for_arrays {
     ($trait_ti: ident) => {

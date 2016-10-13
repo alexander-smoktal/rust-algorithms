@@ -6,11 +6,15 @@ Algorithms &amp; Data Structures in Rust
 Common algorithms and data structures implemented in Rust. Inspired by
 [xtaci Algorithms &amp; Data Structures in C++](https://github.com/xtaci/algorithms)
 
+# Requrement
+
+Library requires rust-nightly >= 0.14, because of some unstable features.
+
 # Algorithms
 
 ### Implemented
 
-- Arbitrary Integer
+- Arbitrary Integer (?)
 - Array shuffle
 - Prime test(trial division)
 - Prime test(Miller-Rabin's method)
@@ -19,6 +23,7 @@ Common algorithms and data structures implemented in Rust. Inspired by
 
 ----
 - Bit-Set
+- Queue
 
 ### Not yet implemented
 
@@ -26,7 +31,6 @@ Common algorithms and data structures implemented in Rust. Inspired by
 - Maximum subarray
 
 ----
-- Queue
 - Stack
 - Binary Heap
 - Fibonacci Heap

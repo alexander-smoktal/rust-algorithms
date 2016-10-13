@@ -1,3 +1,5 @@
+#![feature(heap_api, alloc)]
+
 mod math;
 
 pub mod prime_test;

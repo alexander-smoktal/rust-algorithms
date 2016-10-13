@@ -5,10 +5,12 @@
  *
  ******************************************************************************/
 
-use std::ops::{Add, Mul};
+use std::ops::{Add/*, Mul*/};
+use std::fmt::{ Display, Result, Formatter };
 
 #[derive(Debug)]
 pub struct Integer {
+    is_negative: bool,
     data: Vec<u8>,
 }
 
@@ -16,8 +18,8 @@ impl Integer {
     pub fn from_string(input: String) -> Integer {
         assert!(input.len() > 0);
 
-        let (mut result, mut last_vec_byte) = (Integer { data: vec![0; 1] }, 0);
         let is_negative = input.chars().next().unwrap() == '-';
+        let (mut result, mut last_vec_byte) = (Integer { is_negative: is_negative, data: vec![0; 1] }, 0);
 
         for chr in input.chars().skip(if is_negative { 1 } else { 0 }) {
             assert!(chr.is_digit(10));
@@ -35,38 +37,72 @@ impl Integer {
                 result.data.push((new_value >> 8) as u8);
             }
         }
+        result.data = result.data.into_iter().rev().collect();
         result
+    }
+    fn add_value_at(&mut self, mut value: u64, mut pos: usize) {
+        let mut carry = 0_u64;
+        loop {
+            let sum_result: u64 = self.data[pos] as u64 + (value & 0xff) + carry;
+            self.data[pos] = sum_result as u8;
+            carry = sum_result >> 8;
+            value >>= 8;
+
+            if value == 0 && carry == 0 {
+                break;
+            }
+
+            pos += 1;
+            if pos == self.data.len() {
+                self.data.push(0)
+            }
+        }
     }
 }
 
+impl Display for Integer {
+    fn fmt(&self, f: &mut Formatter) -> Result {
+        let mut result = String::new();
 
-impl<T> Add<T> for Integer where u64: From<T> {
+        let mut digit = 0u16;
+        for byte in &self.data {
+            digit = digit * 256 + *byte as u16;
+            while digit > 10 {
+                // println!("Digit: {:?}", digit);
+                result += &(digit % 10).to_string();
+                digit /= 10
+            }
+        }
+        result += &(digit).to_string();
+        result += if self.is_negative { "-" } else { "" };
+        let _ = write!(f, "{}", result.chars().rev().collect::<String>());
+
+        Ok(())
+    }
+}
+
+impl<T> Add<T> for Integer
+    where i64: From<T>
+{
     type Output = Integer;
 
     fn add(mut self, rhs: T) -> Self {
-        let (mut digit, mut carry) = (u64::from(rhs), 0_u64);
+        let value = i64::from(rhs);
+        self.is_negative = value < 0;
 
-        let mut i = 0;
-        loop {
-            let sum_result: u64 = self.data[i] as u64 + (digit & 0xff) + carry;
-            self.data[i] = sum_result as u8;
-            carry = sum_result >> 8;
-            digit >>= 8;
+        self.add_value_at(value.abs() as u64, 0);
 
-            if digit == 0 && carry == 0 { break }
-
-            i += 1;
-            if i == self.data.len() { self.data.push(0) }
-        }
         self
     }
 }
 
-impl<T> Mul<T> for Integer where u64: From<T> {
+/*impl<T> Mul<T> for Integer where u64: From<T> {
     type Output = Integer;
 
     fn mul(self, rhs: T) -> Self {
-        let mut result = Integer { data: vec![0; self.data.len()]};
+        let mut result = Integer { 
+            is_negative: self.is_negative && 
+            data: vec![0; self.data.len()]};
         let (mut digit, _) = (u64::from(rhs), 0_u64);
 
         let mut i = 0;
@@ -82,4 +118,4 @@ impl<T> Mul<T> for Integer where u64: From<T> {
         }
         result
     }
-}
+}*/

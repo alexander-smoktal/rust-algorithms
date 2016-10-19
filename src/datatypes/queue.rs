@@ -5,99 +5,93 @@
  *
  ******************************************************************************/
 
-extern crate alloc;
-
-use self::alloc::heap;
-use std::mem;
-use std::fmt;
+use std::rc::Rc;
+use std::fmt::{Display, Formatter, Result};
+use std::cell::RefCell;
 
 const QUEUE_VEC_LEN: usize = 2;
 
 struct QueueNode<T> {
-    pub data: Vec<T>,
-    pub next: *mut QueueNode<T>
+    data: Vec<T>,
+    next: Option<Rc<RefCell<QueueNode<T>>>>
 }
 
 pub struct Queue<T> {
-    first_node: *mut QueueNode<T>,
-    last_node: *mut QueueNode<T>
+    first_node: Rc<RefCell<QueueNode<T>>>,
+    last_node: Rc<RefCell<QueueNode<T>>>
 }
 
 impl<T> Queue<T> {
     pub fn new() -> Queue<T> {
-        unsafe {
-            let new_node = heap::allocate(mem::size_of::<QueueNode<T>>(),
-                                        mem::align_of::<QueueNode<T>>())
-                        as *mut QueueNode<T>;
+        let root_node = Rc::new(
+            RefCell::new (
+                QueueNode {
+                    data: Vec::with_capacity(QUEUE_VEC_LEN),
+                    next: None
+                }
+            )
+        );
 
-            let new_node_ref = &mut *new_node;
-            new_node_ref.data = Vec::with_capacity(QUEUE_VEC_LEN);
-            new_node_ref.next = heap::EMPTY as *mut QueueNode<T>;
-            
-            Queue {
-                first_node: new_node,
-                last_node: new_node
-            }
+        Queue {
+            first_node: root_node.clone(),
+            last_node: root_node
         }
     }
 
     pub fn push(&mut self, elem: T) -> &mut Self {
-        unsafe{
-            let mut last_node = &mut *self.last_node;
-            if last_node.data.len() >= QUEUE_VEC_LEN {
-                last_node.next = heap::allocate(mem::size_of::<QueueNode<T>>(),
-                                                mem::align_of::<QueueNode<T>>())
-                                 as *mut QueueNode<T>;
+        {
+            if self.last_node.borrow().data.len() >= QUEUE_VEC_LEN {
+                self.last_node.borrow_mut().next = Some (
+                    Rc::new(
+                        RefCell::new(
+                            QueueNode {
+                                data: Vec::with_capacity(QUEUE_VEC_LEN),
+                                next: None
+                            }
+                        )
+                    )
+                );
 
-                self.last_node = last_node.next;
-                last_node = &mut *self.last_node;
-                last_node.data = Vec::with_capacity(QUEUE_VEC_LEN);
-                last_node.next = heap::EMPTY as *mut QueueNode<T>;
+                let next_last_node = self.last_node.borrow().next.as_ref().unwrap().clone();
+                self.last_node = next_last_node;
             }
-            last_node.data.push(elem);
         }
+
+        self.last_node.borrow_mut().data.push(elem);
         self
     }
 
     pub fn pop(&mut self) -> Option<T> {
-        unsafe {
-            let first_node = &mut *self.first_node; 
+        if self.first_node.borrow().data.is_empty() {
+            if self.first_node.borrow().next.is_none() { return None }
 
-            if first_node.data.is_empty() {
-                if first_node.next == heap::EMPTY as *mut QueueNode<T> {
-                    return None
-                }
-
-                let second_node = first_node.next;
-                heap::deallocate(self.first_node as *mut u8,
-                                 mem::size_of::<QueueNode<T>>(),
-                                 mem::align_of::<QueueNode<T>>());
-                self.first_node = second_node;
-            }
-            let first_node = &mut *self.first_node; 
-
-            Some(first_node.data.remove(0)) 
+            let next_first_node = self.first_node.borrow().next.as_ref().unwrap().clone();
+            self.first_node = next_first_node;
         }
+
+        Some(self.first_node.borrow_mut().data.remove(0))
     }
 }
 
 
-impl<T> fmt::Display for Queue<T> where T: fmt::Display {
-    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+impl<T> Display for Queue<T> where T: Display {
+    fn fmt(&self, f: &mut Formatter) -> Result {
         let _ = write!(f, "{{");
         let mut initial = true;
-        unsafe {
-            let mut pointer = &mut *self.first_node;
-            loop {
-                for elem in &pointer.data {
-                    // This comma -_-
-                    if initial { initial = false } else { let _ = write!(f, ", "); }
 
-                    let _ = write!(f, "{}", elem);
-                }
-                if pointer.next == heap::EMPTY as *mut QueueNode<T> { break }
-                pointer = &mut *pointer.next
+        let mut pointer = self.first_node.clone();
+        loop {
+            for elem in &pointer.borrow().data {
+                // This comma -_-
+                if initial { initial = false } else { let _ = write!(f, ", "); }
+
+                let _ = write!(f, "{}", elem);
             }
+
+            if pointer.borrow().next.is_none() { break }
+
+            let next_pointer = pointer.borrow().next.as_ref().unwrap().clone();
+            pointer = next_pointer
         }
         write!(f, "}}")
     }

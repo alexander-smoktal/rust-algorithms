@@ -8,7 +8,7 @@ Common algorithms and data structures implemented in Rust. Inspired by
 
 # Requrement
 
-Library requires rust-nightly >= 0.14, because of some unstable features.
+Library requires rust >= 0.12
 
 # Algorithms
 

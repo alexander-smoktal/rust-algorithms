@@ -9,7 +9,7 @@ use std::rc::Rc;
 use std::fmt::{Display, Formatter, Result};
 use std::cell::RefCell;
 
-const QUEUE_VEC_LEN: usize = 2;
+const QUEUE_VEC_LEN: usize = 64;
 
 struct QueueNode<T> {
     data: Vec<T>,

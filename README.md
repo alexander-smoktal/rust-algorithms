@@ -24,6 +24,7 @@ Library requires rust >= 0.12
 ----
 - Bit-Set
 - Queue
+- Stack
 
 ### Not yet implemented
 
@@ -31,7 +32,6 @@ Library requires rust >= 0.12
 - Maximum subarray
 
 ----
-- Stack
 - Binary Heap
 - Fibonacci Heap
 - Priority Queue (list based)

@@ -28,4 +28,12 @@ fn test_random() {
     assert!(val8 != val9);
     assert!(val7 != val9);
     assert!(val7 != val8);
+
+    let (val10, val11, val12) = (usize::random(), usize::random(), usize::random());
+
+    println!("Random usize: {} {} {}", val10, val11, val12);
+
+    assert!(val10 != val11);
+    assert!(val10 != val12);
+    assert!(val11 != val12);
 }

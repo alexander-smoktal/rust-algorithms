@@ -9,15 +9,14 @@
  ******************************************************************************/
 
 use std::borrow::BorrowMut;
-
-extern crate rand;
+use lc_generator::Random;
 
 pub trait ArrayShuffle<E> where Self: BorrowMut<[E]> {
      fn shuffle(&mut self) {
          let len = self.borrow().len();
 
          for i in 0..len - 1 {
-            let j = rand::random::<usize>() % (len - i - 1) + 1;
+            let j = usize::random() % (len - i - 1) + 1;
             self.borrow_mut().swap(i, i + j)
         }
      }

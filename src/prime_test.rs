@@ -4,10 +4,8 @@
  * http://en.wikipedia.org/wiki/Miller%E2%80%93Rabin_primality_test
  *
  ******************************************************************************/
-
-extern crate rand;
-
 use math;
+use lc_generator::Random;
 
 /* Trial primality test */
 pub trait TrialPrime where u64: From<Self>, Self: Sized {
@@ -50,7 +48,7 @@ pub trait Prime where u64: From<Self>, Self: Sized {
                 let d = (n - 1) >> s;
 
                 'witness: for _ in 0..ACCURACY {
-                    let a = rand::random::<u64>() % (n - 4) + 2;
+                    let a = u64::random() % (n - 4) + 2;
                     let mut x = math::mod_exp(a, d, n); // NOTE: we use own function for modular exponentiation
 
                     if x == 1 || x == (n - 1) { continue }

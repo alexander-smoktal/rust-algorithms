@@ -22,12 +22,38 @@ pub trait ArrayShuffle<E> where Self: BorrowMut<[E]> {
      }
 }
 
-// Vector implementation
 impl<E> ArrayShuffle<E> for Vec<E> {}
-
-// Slices implementation
 impl<E> ArrayShuffle<E> for [E] {}
-
-// Fixed-size implementation
-// We use macro, to implent trait for all fixed-size arrays
-implement_for_arrays!(ArrayShuffle);
+impl<E> ArrayShuffle<E> for [E; 0] {}
+impl<E> ArrayShuffle<E> for [E; 1] {}
+impl<E> ArrayShuffle<E> for [E; 2] {}
+impl<E> ArrayShuffle<E> for [E; 3] {}
+impl<E> ArrayShuffle<E> for [E; 4] {}
+impl<E> ArrayShuffle<E> for [E; 5] {}
+impl<E> ArrayShuffle<E> for [E; 6] {}
+impl<E> ArrayShuffle<E> for [E; 7] {}
+impl<E> ArrayShuffle<E> for [E; 8] {}
+impl<E> ArrayShuffle<E> for [E; 9] {}
+impl<E> ArrayShuffle<E> for [E; 10] {}
+impl<E> ArrayShuffle<E> for [E; 11] {}
+impl<E> ArrayShuffle<E> for [E; 12] {}
+impl<E> ArrayShuffle<E> for [E; 13] {}
+impl<E> ArrayShuffle<E> for [E; 14] {}
+impl<E> ArrayShuffle<E> for [E; 15] {}
+impl<E> ArrayShuffle<E> for [E; 16] {}
+impl<E> ArrayShuffle<E> for [E; 17] {}
+impl<E> ArrayShuffle<E> for [E; 18] {}
+impl<E> ArrayShuffle<E> for [E; 19] {}
+impl<E> ArrayShuffle<E> for [E; 20] {}
+impl<E> ArrayShuffle<E> for [E; 21] {}
+impl<E> ArrayShuffle<E> for [E; 22] {}
+impl<E> ArrayShuffle<E> for [E; 23] {}
+impl<E> ArrayShuffle<E> for [E; 24] {}
+impl<E> ArrayShuffle<E> for [E; 25] {}
+impl<E> ArrayShuffle<E> for [E; 26] {}
+impl<E> ArrayShuffle<E> for [E; 27] {}
+impl<E> ArrayShuffle<E> for [E; 28] {}
+impl<E> ArrayShuffle<E> for [E; 29] {}
+impl<E> ArrayShuffle<E> for [E; 30] {}
+impl<E> ArrayShuffle<E> for [E; 31] {}
+impl<E> ArrayShuffle<E> for [E; 32] {}

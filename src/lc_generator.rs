@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * LINEAR CONGRUENTIAL GENERATOR
+ *
+ * https://en.wikipedia.org/wiki/Linear_congruential_generator
+ *
+ ******************************************************************************/
+
 use std::u64;
 use std::time;
 use std::sync::{Once, ONCE_INIT};

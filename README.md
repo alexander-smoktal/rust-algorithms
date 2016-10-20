@@ -21,6 +21,7 @@ Library requires rust >= 0.12
 - Modular exponentiation
 - Matrix
 - Linear congruential generator
+- Maximum subarray
 
 ----
 - Bit-Set
@@ -29,9 +30,6 @@ Library requires rust >= 0.12
 
 ### Not yet implemented
 
-- Maximum subarray
-
-----
 - Binary Heap
 - Fibonacci Heap
 - Priority Queue (list based)

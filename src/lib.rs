@@ -8,3 +8,4 @@ pub mod array_shuffle;
 
 #[macro_use]
 pub mod datatypes;
+pub mod lc_generator;

@@ -20,6 +20,7 @@ Library requires rust >= 0.12
 - Prime test(Miller-Rabin's method)
 - Modular exponentiation
 - Matrix
+- Linear congruential generator
 
 ----
 - Bit-Set
@@ -28,7 +29,6 @@ Library requires rust >= 0.12
 
 ### Not yet implemented
 
-- Linear congruential generator
 - Maximum subarray
 
 ----

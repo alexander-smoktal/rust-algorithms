@@ -1,5 +1,5 @@
 /******************************************************************************
- * MTRIX IMPLEMENTATION
+ * MATRIX IMPLEMENTATION
  *
  * https://en.wikipedia.org/wiki/Matrix_(mathematics)
  * 

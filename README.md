@@ -27,10 +27,11 @@ Library requires rust >= 0.12
 - Bit-Set
 - Queue
 - Stack
+- Binary Tree
+- Binary Heap
 
 ### Not yet implemented
 
-- Binary Heap
 - Fibonacci Heap
 - Priority Queue (list based)
 

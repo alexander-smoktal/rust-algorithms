@@ -33,7 +33,7 @@ impl<T: Ord + Debug> BinaryHeap<T> {
     pub fn new() -> Self {
         BinaryHeap {
             tree: Tree::Empty,
-            cmp_func: Box::new(|x: &T, y: &T| { x > y })
+            cmp_func: Box::new(|x, y| { x > y })
         }
     }
 
